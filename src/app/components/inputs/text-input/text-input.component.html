@@ -1,0 +1,22 @@
+<div class="main_wrapper">
+  <div class="text-input-wrapper">
+    <img [src]="iconSrc" />
+
+    <form #form="ngForm">
+      <input
+        ngModel
+        required
+        [type]="inputType"
+        [placeholder]="placeHolderText"
+        class="text_input"
+        #inputText="ngModel"
+        [name]="inputName"
+        (focusout)="onChange(inputText)"
+        [class.input-invalid]="!isValid"
+        ngModel
+        [email]="isEmail"
+        minlength="4"
+      />
+    </form>
+  </div>
+</div>

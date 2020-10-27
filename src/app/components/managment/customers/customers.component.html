@@ -1,0 +1,30 @@
+<div class="update-customer-container">
+  <update-add-customer (customerEvent)="updateCustomersList($event)"></update-add-customer>
+</div>
+<div class="main-container fader-wrapper">
+  <h1>Customers Managment</h1>
+  <div class="table_container">
+    <div class="table-options">
+      <div class="search_bar_wrapper">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="search me anything"
+          #searchBar
+          [(ngModel)]="searchKeyWords"
+          (keyup)="search()"
+        />
+        <img class="search-icon" src="assets/images/search-bar-icon.svg" />
+      </div>
+
+      <a class="sort-btn" (click)="sortByName()" [class.action-clicked]="sortBy">Sort By Name</a>
+      <div class="dropdown">
+        <a>Filter</a>
+        <div class="white-spacer"></div>
+        <div class="dropdown-menu"></div>
+      </div>
+    </div>
+
+    <app-table [content]="getContent()" (actionClicked)="navigateAction($event)"></app-table>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="update-coupon-container">
+  <update-add-coupon (couponEvent)="updateCouponsList($event)"></update-add-coupon>
+</div>
+<div class="main-container fader-wrapper">
+  <h1>Coupon Managment</h1>
+
+  <a (click)="previousPage()" class="back-btn" *ngIf="companyId !== 0 || customerId !== 0"
+    ><img src="assets/images/back-arrow.svg" /> Back</a
+  >
+  <div class="table_container">
+    <!-- Table sorting / results options START -->
+
+    <div class="table-options">
+      <div class="search_bar_wrapper">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="search me anything"
+          #searchBar
+          [(ngModel)]="searchKeyWords"
+          (keyup)="search()"
+        />
+        <img class="search-icon" src="assets/images/search-bar-icon.svg" />
+      </div>
+
+      <div class="dropdown" [class.action-clicked]="sortBy">
+        <a>Sort By {{ sortBy }}</a>
+        <div class="white-spacer"></div>
+        <div class="dropdown-menu">
+          <a (click)="sortCoupons('price')">Price</a>
+          <a *ngIf="isAdmin()" (click)="sortCoupons('companyName')">Company</a>
+        </div>
+      </div>
+
+      <div class="dropdown" [class.action-clicked]="isFiltered">
+        <div *ngIf="isFiltered" (click)="backToAllCoupons()" class="close-btn">x</div>
+        <a>Filter</a>
+        <div class="white-spacer"></div>
+        <div class="dropdown-menu">
+          <ng-container *ngFor="let category of getCategories() | keyvalue">
+            <a (click)="filterByCategory(category.value.toUpperCase())">{{ category.value }}</a>
+          </ng-container>
+        </div>
+      </div>
+
+      <a class="dropdown" *ngIf="companyId !== 0 || customerId !== 0" (click)="getAllCoupons()"
+        >All Coupons</a
+      >
+    </div>
+
+    <!-- Table sorting / results options END -->
+
+    <app-table [content]="getContent()" (actionClicked)="navigateAction($event)"></app-table>
+  </div>
+</div>

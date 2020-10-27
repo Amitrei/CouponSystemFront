@@ -1,0 +1,88 @@
+<div class="delete-popup">
+  <delete-popup
+    [deletedObject]="deletedObject"
+    [objectID]="deletedObjectID"
+    (deleteClicked)="onActionClicked($event, 'delete')"
+  ></delete-popup>
+</div>
+
+<table *ngIf="content && content[0]">
+  <div
+    *ngIf="authService.isAdmin() || authService.isCompany()"
+    class="add-btn"
+    [class.button-disabled]="isAdminOnCoupons()"
+  >
+    <div class="plus" (click)="onActionClicked(0, 'add')">+</div>
+  </div>
+  <thead>
+    <tr>
+      <ng-container *ngFor="let header of content[0] | keyvalue: unsorted; index as i">
+        <th *ngIf="filterHeaders(header.key)">
+          {{ filterHeaders(header.key) }}
+        </th>
+      </ng-container>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tr #myRow *ngFor="let obj of content">
+    <ng-container *ngFor="let property of content[0] | keyvalue: unsorted; index as i">
+      <td
+        [attr.data-label]="filterHeaders(property.key)"
+        *ngIf="
+          loopOverProps(obj[property.key], property.key) ||
+          loopOverProps(obj[property.key], property.key) === 0
+        "
+      >
+        {{ loopOverProps(obj[property.key], property.key) }}
+      </td>
+    </ng-container>
+    <td>
+      <div class="actions-btn-container">
+        <div
+          class="table-btn delete-btn"
+          [class.button-disabled]="isAdminOnCoupons()"
+          (click)="deleteClicked(obj, getRowObjectId(obj))"
+          *ngIf="authService.isAdmin() || authService.isCompany()"
+        >
+          <!-- {{ getRowObjectId(coupon.value) }} -->
+          <img src="/assets/images/delete-icon.svg" />
+          <span>Delete</span>
+        </div>
+
+        <div
+          class="table-btn update-btn"
+          [class.button-disabled]="isAdminOnCoupons()"
+          (click)="onActionClicked(getRowObjectId(obj), 'update')"
+          *ngIf="authService.isAdmin() || authService.isCompany()"
+        >
+          <img src="/assets/images/update-icon.svg" />
+          <span>Update</span>
+        </div>
+
+        <div
+          class="table-btn preview-btn"
+          (click)="onActionClicked(getRowObjectId(obj), 'preview')"
+        >
+          <img src="/assets/images/preview-icon.svg" />
+          <span>Preview</span>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div class="empty-table-message" *ngIf="content && !content[0]">
+  <span>?</span>
+  <h1>We couldn't find anything</h1>
+  <a *ngIf="authService.isCustomer()" (click)="navToHome()" class="green-btn">
+    Click here to browse our coupons
+  </a>
+
+  <a
+    *ngIf="!isAdminOnCoupons() && (authService.isAdmin() || authService.isCompany())"
+    class="green-btn empty-btn"
+    (click)="onActionClicked(0, 'add')"
+    >Click here to add
+  </a>
+</div>

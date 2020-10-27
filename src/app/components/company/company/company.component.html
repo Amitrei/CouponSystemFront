@@ -1,0 +1,44 @@
+<h1 class="fader-wrapper">My Company</h1>
+<a (click)="goBack()" class="back-btn fader-wrapper">
+  <img src="assets/images/back-arrow.svg" /> Back</a
+>
+<div class="main-container fader-wrapper" *ngIf="company">
+  <div class="card-container account-details">
+    <div class="account-details-container">
+      <div class="headline">
+        <img src="assets/images/login-icon.svg" />
+        <h2>Company Details</h2>
+      </div>
+      <div class="center-details">
+        <div class="text-container">
+          <span class="bold-span">Company Name</span>
+          <span>{{ company.name }}</span>
+        </div>
+
+        <div class="text-container">
+          <span class="bold-span">Email</span>
+          <span>{{ company.email }} </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-container my-purchases">
+    <div class="account-details-container">
+      <div class="headline">
+        <img class="coupon-icon" src="assets/images/coupons-icon.png" />
+        <h2>Company Coupons</h2>
+      </div>
+      <div class="center-details">
+        <div class="text-container">
+          <span class="bold-span">Total Coupons</span>
+          <span>{{ company.coupons.length }}</span>
+        </div>
+
+        <a class="green-btn" *ngIf="company.coupons.length > 0" (click)="navigateToCoupons()"
+          >Coupons</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="main_wrapper fader-wrapper">
+  <div class="search_bar_wrapper">
+    <img src="assets/images/search-bar-icon.svg" />
+    <input
+      type="text"
+      placeholder="search for a coupon"
+      class="search_bar"
+      #searchBar
+      (keyup)="search(searchBar)"
+    />
+  </div>
+  <!-- <h3>0 results for : {{ searchBarResult }} has found.</h3> -->
+</div>
+<!-- search results -->

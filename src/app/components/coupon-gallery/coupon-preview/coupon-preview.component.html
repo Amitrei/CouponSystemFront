@@ -1,0 +1,45 @@
+<div
+  class="card-container fader-wrapper"
+  *ngIf="isPreviewOpen() && coupon"
+  (keydown.esc)="closePreview()"
+>
+  <div class="close-btn" (click)="closePreview()">X</div>
+  <div class="image-container">
+    <img [src]="service.imgSrc" alt="" />
+  </div>
+
+  <div class="flex-container">
+    <div class="coupon-content">
+      <h1>{{ coupon.companyName }}</h1>
+      <h2>{{ coupon.title }}</h2>
+      <p>{{ coupon.description }}</p>
+
+      <div class="coupon-extra-details">
+        <span>Category: {{ coupon.category.toLowerCase() }}</span>
+        <span>Quantity: {{ getAmount() }}</span>
+        <span>Experation Date: {{ coupon.end_date }}</span>
+      </div>
+      <div class="price-flex-container">
+        <span class="price-span" [class.price-out]="purchaseClicked">{{ coupon.price }}$</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-container">
+    <a
+      *ngIf="allowPurchase(); else notAllowedToPurchase"
+      class="buy-now-btn green-btn"
+      (click)="purchaseCoupon()"
+      [class.buy-now-btn-fadeout]="purchaseClicked && allowPurchase"
+      >BUY NOW <img src="/assets/images/shopping-cart.svg"
+    /></a>
+
+    <ng-template #notAllowedToPurchase>
+      <a class="buy-now-btn button-disabled"> {{ cannotPurchaseMsg() }}</a>
+    </ng-template>
+  </div>
+  <div *ngIf="purchaseClicked" class="purchase-completed">
+    <img src="/assets/images/check-mark.svg" />
+    <span>Purchase Completed!</span>
+  </div>
+</div>

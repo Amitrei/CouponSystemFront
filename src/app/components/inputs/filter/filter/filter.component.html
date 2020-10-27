@@ -1,0 +1,48 @@
+<form #form="ngForm">
+  <div class="filter-container">
+    <div class="filter-header">
+      <h2>Filters</h2>
+      <span (click)="closeFilterView()">X</span>
+    </div>
+    <div class="categories-container">
+      <h1>Categories</h1>
+      <div class="categories-btn-container">
+        <label class="category-btn" *ngFor="let category of categories | keyvalue">
+          <input
+            type="checkbox"
+            [value]="category.value"
+            #categoryBtn
+            (click)="categoryClicked(categoryBtn)"
+          /><span>{{ category.value }}</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="max-price-container">
+      <h1>Price</h1>
+      <div class="input-wrapper">
+        <input id="max-price" [(ngModel)]="maxPrice" name="maxPrice" type="text" />
+        <label for="max-price">$</label>
+      </div>
+      <span *ngIf="isInvalidPrice()">Please insert a valid number</span>
+    </div>
+
+    <div class="sort-container">
+      <h1>Sort By</h1>
+      <select #sortInput>
+        <option></option>
+        <option value="price">Price</option>
+        <option value="companyName">Company Name A-Z</option>
+      </select>
+    </div>
+    <div class="save-btn-container">
+      <a
+        class="save-btn"
+        [class.disabled-btn]="isInvalidPrice()"
+        (click)="filter(maxPrice, sortInput.value)"
+        >Save</a
+      >
+      <a class="clear-btn" (click)="clearForms()">Clear</a>
+    </div>
+  </div>
+</form>

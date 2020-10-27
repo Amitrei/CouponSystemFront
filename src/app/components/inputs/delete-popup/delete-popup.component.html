@@ -1,0 +1,13 @@
+<div class="popup-container" *ngIf="deletedObject && isPopup()">
+  <h1>Delete</h1>
+  <p>Are you sure you want to delete:</p>
+
+  <div class="item-details">
+    <span *ngFor="let item of convertObjToArray()">{{ item }}</span>
+  </div>
+
+  <div class="btns-container">
+    <a (click)="closeWindow()">cancel</a>
+    <a (click)="deleteEmit()" class="delete-btn">delete</a>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="nav_container">
+  <div class="burger_icon" #burger (click)="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <a [routerLink]="['/']"
+    ><h1 class="logo">{{ companyName }}</h1></a
+  >
+  <div class="search-bar">
+    <search-bar *ngIf="isMainPage()" (foundedMatches)="logIt($event)"></search-bar>
+  </div>
+  <div class="nav-menu">
+    <ul *ngIf="authService.isLoggedIn()">
+      <li>
+        <div class="dropdown">
+          <a *ngIf="authService.isCustomer()" [routerLink]="['/account']">Account</a>
+          <a *ngIf="authService.isCompany()" [routerLink]="['/company']">Account</a>
+          <div class="white-spacer"></div>
+          <div class="dropdown-menu">
+            <a [routerLink]="['/change-password']">Change Password</a>
+            <a [routerLink]="['/change-email']">Change Email</a>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div class="dropdown">
+          <a>Managment</a>
+          <div class="white-spacer"></div>
+          <div class="dropdown-menu">
+            <a [routerLink]="['/coupons']">Coupons</a>
+            <a *ngIf="authService.isAdmin()" [routerLink]="['/companies']">Companies</a>
+            <a *ngIf="authService.isAdmin()" [routerLink]="['/customers']">Customers</a>
+          </div>
+        </div>
+      </li>
+
+      <li></li>
+    </ul>
+    <a *ngIf="!authService.isLoggedIn() && !isLoginPage()" [routerLink]="['/login']" class="btn"
+      >Login</a
+    >
+    <a *ngIf="authService.isLoggedIn()" (click)="authService.logout()" class="btn">Logout</a>
+  </div>
+</div>

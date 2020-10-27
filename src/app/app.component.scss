@@ -1,0 +1,44 @@
+@import '/couponsystem/src/styles.scss';
+header {
+  height: 10vh;
+  position: relative;
+  min-width: 100%;
+}
+
+main {
+  min-height: 75vh;
+  padding: $main_padding;
+  position: relative;
+  width: calc(100%-200px);
+  margin-left: 200px;
+  transition: all 0.3s ease-in-out;
+}
+
+.main_no_menu {
+  transition: all 0.3s ease-in-out;
+  margin-left: 0;
+}
+footer {
+  background-color: $secondary_color;
+  min-height: 15vh;
+  min-width: 100%;
+}
+
+.error-message {
+  position: fixed;
+  right: 20px;
+  top: 30%;
+  z-index: 999;
+}
+
+@media screen and (max-width: 1350px) {
+  main {
+    padding: 4rem 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    margin: 0;
+  }
+}

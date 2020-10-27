@@ -1,0 +1,97 @@
+<div class="fader-wrapper">
+  <div class="banner_wrapper">
+    <div class="banner">
+      <p>
+        Over 1,000 Coupons <br />
+        Are Waiting Just for you
+      </p>
+      <a class="btn signup">Sign Up</a>
+    </div>
+  </div>
+
+  <div class="search-bar-container">
+    <search-bar></search-bar>
+  </div>
+
+  <div class="search-container" *ngIf="getSearchResults()">
+    <div class="search-headline">
+      <h1>{{ resultsText() }}</h1>
+    </div>
+
+    <div
+      class="gallery_container fader-wrapper"
+      [class.search-gallery-no-results]="!getSearchResults().length"
+    >
+      <div class="gallery-btns"><a class="btn gallery-btn">Refine</a></div>
+      <div class="fader-wrapper" *ngFor="let coupon of getSearchResults()">
+        <coupon-card
+          [companyName]="coupon.companyName"
+          [couponTitle]="coupon.title"
+          [couponPrice]="coupon.price"
+          [couponDescription]="coupon.description"
+          [couponImage]="coupon.image"
+          [couponId]="coupon.id"
+        ></coupon-card>
+      </div>
+      <div *ngIf="!getSearchResults().length" class="no-results-found">
+        <p>Sorry we couldn't find what your looking for.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-headline">
+    <h1>Featured Coupons</h1>
+  </div>
+  <div class="gallery_container">
+    <!-- Filters -->
+    <div
+      [class.filter-in]="isFilterClicked"
+      [class.filter-out]="isFilterClicked === false"
+      class="filter-container"
+      *ngIf="filterOn"
+    >
+      <gallery-filter (filteredList)="loadFilteredList($event)"></gallery-filter>
+    </div>
+
+    <div class="gallery-btns">
+      <a class="btn gallery-btn" (click)="onFilterClick()">Refine</a>
+
+      <!-- <a class="btn gallery-btn dropdown" (click)="sortCouponsByPrice()">Sort by</a> -->
+    </div>
+
+    <ng-container *ngIf="allCoupons && allCoupons.length">
+      <div *ngFor="let coupon of allCoupons">
+        <coupon-card
+          [companyName]="coupon.companyName"
+          [couponTitle]="coupon.title"
+          [couponPrice]="coupon.price"
+          [couponDescription]="coupon.description"
+          [couponImage]="coupon.image"
+          [couponId]="coupon.id"
+        ></coupon-card>
+      </div>
+    </ng-container>
+    <div class="no-results-found" *ngIf="allCoupons && !allCoupons.length">
+      <p>Sorry no coupons found.</p>
+    </div>
+  </div>
+
+  <!-- Featured end -->
+
+  <div class="gallery-headline">
+    <h1>Hot Trends</h1>
+    <img src="assets/images/fire.svg" />
+  </div>
+  <div class="gallery_container">
+    <div *ngFor="let coupon of hotTrends">
+      <coupon-card
+        [companyName]="coupon.companyName"
+        [couponTitle]="coupon.title"
+        [couponPrice]="coupon.price"
+        [couponDescription]="coupon.description"
+        [couponImage]="coupon.image"
+        [couponId]="coupon.id"
+      ></coupon-card>
+    </div>
+  </div>
+</div>

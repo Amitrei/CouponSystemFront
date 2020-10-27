@@ -1,0 +1,93 @@
+<div class="login_container fader-wrapper">
+  <div class="login_left_wrapper">
+    <div class="top_wrapper">
+      <h1>Members Login</h1>
+      <img src="/assets/images/login-icon.svg" />
+    </div>
+
+    <div class="inputs-field">
+      <div class="input_wrapper">
+        <app-text-input
+          inputType="email"
+          placeHolderText="Email"
+          [iconSrc]="emailIconSrc"
+          inputName="userEmail"
+          (inputNgModel)="saveEmail($event)"
+          [isValid]="email === undefined || !email.errors"
+        ></app-text-input>
+      </div>
+      <div
+        class="invalid-massage"
+        *ngIf="email !== undefined && email.errors && email.touched && email.errors.required"
+      >
+        please enter a email address.
+      </div>
+
+      <div class="invalid-massage" *ngIf="email !== undefined && email.value && !email.valid">
+        please enter valid email address.
+      </div>
+      <div class="input_wrapper">
+        <app-text-input
+          inputType="password"
+          placeHolderText="Password"
+          [iconSrc]="passwordIconSrc"
+          inputName="userPassword"
+          (inputNgModel)="savePassword($event)"
+          [isValid]="password === undefined || !password.errors"
+        ></app-text-input>
+        <div
+          class="invalid-massage invalid-password"
+          *ngIf="password !== undefined && password.errors"
+        >
+          enter a valid password atleast 4 chars
+        </div>
+      </div>
+
+      <div class="type_wrapper">
+        <label for="type-select">Type</label>
+        <select
+          ngModel
+          #userType="ngModel"
+          required
+          name="userType"
+          (change)="saveType(userType)"
+          id="type-select"
+          (focus)="saveType(userType)"
+        >
+          <option value="administrator">Admin</option>
+          <option value="customer">Customer</option>
+          <option value="company">Company</option>
+        </select>
+        <div
+          class="invalid-massage user-type-msg"
+          *ngIf="userType && userType.touched && userType.errors"
+        >
+          please select a user type.
+        </div>
+      </div>
+    </div>
+
+    <div class="invalid-massage login-error" *ngIf="loginError">
+      {{ loginError }}
+    </div>
+    <a
+      [class.button-disabled]
+      [ngClass]="{
+        'button-disabled':
+          email === undefined || email.invalid || !userType.dirty || password.errors,
+
+        'green-btn': email !== undefined && email.valid && userType.dirty && !password.errors,
+
+        'login-btn': email !== undefined && email.valid && userType.dirty && !password.errors
+      }"
+      (click)="onSubmit()"
+      >Login</a
+    >
+  </div>
+
+  <div class="login_right_wrapper" ngc>
+    <img src="/assets/images/login-coupons.png" />
+    <h1>Not A Member?</h1>
+    <a class="green-btn signup-cta">Click Here To Sign Up</a>
+  </div>
+</div>

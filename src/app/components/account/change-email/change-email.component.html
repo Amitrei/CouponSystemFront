@@ -1,0 +1,25 @@
+<div class="change-email-container fader-wrapper">
+  <div class="div_wrapper">
+    <span class="email-decoration">@</span>
+
+    <div class="change_container">
+      <h1>Change Email</h1>
+      <div class="inputs-field">
+        <div class="current_email">
+          <span>Current Email : </span>
+          {{ currentEmail }}
+        </div>
+
+        <app-text-input
+          inputType="email"
+          placeHolderText="new email address"
+          [iconSrc]="emailIconSrc"
+          (inputNgModel)="stamlog($event)"
+          inputName="newEmail"
+        ></app-text-input>
+      </div>
+
+      <a class="green-btn submit-btn">Submit</a>
+    </div>
+  </div>
+</div>

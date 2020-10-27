@@ -1,0 +1,40 @@
+<section [class.open_menu]="getHideMenu()" class="menu_section">
+  <div class="headline_container">
+    <h1>Menu</h1>
+    <img src="assets/images/close-menu.svg" (click)="closeMenu()" />
+  </div>
+
+  <div class="main-menu">
+    <ul class="managment-list" *ngIf="isLoggedIn()">
+      <h2>Managment</h2>
+      <li (click)="closeMenu()" [routerLink]="['/coupons']"><a>Coupons</a></li>
+      <li *ngIf="isAdmin()" (click)="closeMenu()" [routerLink]="['/companies']">
+        <a>Companies</a>
+      </li>
+      <li *ngIf="isAdmin()" (click)="closeMenu()" [routerLink]="['/customers']">
+        <a>Customers</a>
+      </li>
+    </ul>
+
+    <ul *ngIf="!isAdmin() && isLoggedIn()" class="my-account-list">
+      <h2>My Account</h2>
+      <li>
+        <a *ngIf="isCustomer()" (click)="closeMenu()" [routerLink]="['/account']"
+          >Account Details</a
+        >
+        <a *ngIf="isCompany()" (click)="closeMenu()" [routerLink]="['/company']">Account Details</a>
+      </li>
+      <li><a (click)="closeMenu()" [routerLink]="['/change-password']">Change Password</a></li>
+      <li><a (click)="closeMenu()" [routerLink]="['/change-email']">Change Email</a></li>
+    </ul>
+  </div>
+
+  <div class="btns-container">
+    <a class="log-btn" *ngIf="isLoggedIn()" (click)="logOut()"
+      >Logout <img src="assets/images/logout-icon.svg"
+    /></a>
+    <a class="log-btn" (click)="closeMenu()" *ngIf="!isLoggedIn()" [routerLink]="['/login']"
+      >Login <img src="assets/images/login-btn-icon.svg"
+    /></a>
+  </div>
+</section>

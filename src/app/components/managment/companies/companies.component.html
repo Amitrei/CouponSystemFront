@@ -1,0 +1,32 @@
+<div class="update-add-company-container">
+  <update-add-company (companyEvent)="updateCompaniesList($event)"></update-add-company>
+</div>
+<div class="main-container fader-wrapper">
+  <h1 *ngIf="updatedCompany">Welcome</h1>
+  <h1>Companies Managment</h1>
+
+  <div class="table_container">
+    <div class="table-options">
+      <div class="search_bar_wrapper">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="search me anything"
+          #searchBar
+          [(ngModel)]="searchKeyWords"
+          (keyup)="search()"
+        />
+        <img class="search-icon" src="assets/images/search-bar-icon.svg" />
+      </div>
+
+      <a class="sort-btn" (click)="sortByName()" [class.action-clicked]="sortBy">Sort</a>
+      <div class="dropdown">
+        <a>Filter</a>
+        <div class="white-spacer"></div>
+        <div class="dropdown-menu"></div>
+      </div>
+    </div>
+
+    <app-table [content]="getContent()" (actionClicked)="navigateAction($event)"></app-table>
+  </div>
+</div>
