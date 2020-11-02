@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Coupon } from 'src/app/models/coupon';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerService {
-  private API_URL = 'http://localhost:8080/customer/';
+  private baseUrl = environment.baseUrl;
+
+  private API_URL = this.baseUrl + 'customer/';
   constructor(private http: HttpClient) {}
 
   purchaseCoupon(coupon: Coupon) {
@@ -21,9 +24,7 @@ export class CustomerService {
   }
 
   getCouponsByCategory(category: Category): Observable<Coupon[]> {
-    return this.http.get<Coupon[]>(
-      this.API_URL + 'coupons-by-category/' + category
-    );
+    return this.http.get<Coupon[]>(this.API_URL + 'coupons-by-category/' + category);
   }
 
   getCouponsByPrice(price: number): Observable<Coupon[]> {

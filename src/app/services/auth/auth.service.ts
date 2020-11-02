@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { GuestService } from './../guest/guest.service';
 import { Router } from '@angular/router';
 import { AuthResponse } from './../../models/auth-response';
@@ -12,6 +13,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl = environment.baseUrl;
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -20,7 +22,7 @@ export class AuthService {
 
   login(authRequest: AuthRequest): Observable<boolean> {
     return this.httpClient
-      .post<boolean>('http://localhost:8080/' + authRequest.type + '/login', authRequest)
+      .post<boolean>(this.baseUrl + authRequest.type + '/login', authRequest)
       .pipe<boolean>(
         map((response: any) => {
           let result: AuthResponse = response;

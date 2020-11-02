@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Customer } from './../../models/customer';
 import { Company } from './../../models/company';
@@ -9,7 +10,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AdminService {
-  private API_ADRESS = 'http://localhost:8080/administrator/';
+  private baseUrl = environment.baseUrl;
+  private API_ADRESS = this.baseUrl + '/administrator/';
   constructor(private httpClient: HttpClient) {}
 
   getAllCompanies(): Observable<Company[]> {

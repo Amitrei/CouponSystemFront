@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Category } from './../../models/category';
 import { Coupon } from 'src/app/models/coupon';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CompanyService {
-  private API_ADRESS = 'http://localhost:8080/company/';
+  private baseUrl = environment.baseUrl;
+  private API_ADRESS = this.baseUrl + 'company/';
   constructor(private httpClient: HttpClient) {}
 
   updateCoupon(coupon: Coupon) {
