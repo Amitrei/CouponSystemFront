@@ -2,7 +2,7 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## The Full Project
-http://www.couponim-web.herokuapp.com
+http://www.couponim-web.herokuapp.com <br/>
 Access Details: <br/>
 Admin: admin@admin.com || password:admin <br/>
 Company: Coca-Cola@gmail.com || password:12345 <br/>
